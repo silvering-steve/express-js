@@ -1,0 +1,7 @@
+{
+  "testEnvironment": "node",
+  "coveragePathIgnorePatterns": ["/dist/", "/node_modules/", "/bin/"],
+  "modulePathIgnorePatterns": ["/dist/", "/node_modules/", "/bin/"],
+  "globalSetup": "./setupTests.js",
+  "globalTeardown": "./teardownTests.js"
+}
