@@ -2,7 +2,7 @@ import express from 'express';
 import { StatusCodes } from 'http-status-codes';
 import swaggerUI from 'swagger-ui-express';
 import swaggerDocument from './library.json';
-import initializeRoutes from './routers';
+import initializeRoutes from './routes';
 import errorMiddleware from './middlewares/errorMiddleware';
 import 'dotenv/config';
 
