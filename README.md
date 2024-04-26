@@ -9,11 +9,11 @@ This is a template for building Express.js applications following a structured d
 ### Description
 
 - **controllers/**: Contains controller files responsible for handling incoming requests and returning appropriate responses.
-- **error/**: Houses error handling logic and middleware for managing errors within the application.
+- **errors/**: Houses error handling logic and middleware for managing errors within the application.
 - **helpers/**: Contains utility functions or helper modules used across different parts of the application.
-- **middleware/**: Holds middleware functions that intercept incoming requests before they reach the routes.
-- **router/**: Defines route handlers and endpoint configurations.
-- **service/**: Contains service modules responsible for business logic and interacting with data models.
+- **middlewares/**: Holds middleware functions that intercept incoming requests before they reach the routes.
+- **routers/**: Defines route handlers and endpoint configurations.
+- **services/**: Contains service modules responsible for business logic and interacting with data models.
 
 ## Usage
 
