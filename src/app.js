@@ -16,20 +16,19 @@ app.get('/', (request, response) => {
   response.status(StatusCodes.OK).send(`Hello ${name}!`);
 });
 
-
 const createModels = () => {
   // return {
-    //     bookModel: model('Book', bookSchema),
-    // };
-  };
-  
-  const createServices = (models) => {
-    // const { bookModel } = models;
-    // const bookService = new BookService(bookModel, authorService);
-    // return {bookService};
-  };
+  //     bookModel: model('Book', bookSchema),
+  // };
+};
 
-  const createController = (services) => {
+const createServices = (models) => {
+  // const { bookModel } = models;
+  // const bookService = new BookService(bookModel, authorService);
+  // return {bookService};
+};
+
+const createController = (services) => {
   // const { bookService } = services;
   // return {
   //   bookController: new BookController(bookService),
