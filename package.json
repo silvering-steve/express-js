@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm-run-all build server",
     "build": "npm-run-all clean transpile copy",
-    "copy": "cp ./src/library.json ./bin",
+    "copy": "cp ./src/swagger.json ./bin",
     "server": "node ./bin/index.js",
     "transpile": "babel ./src --out-dir ./bin",
     "clean": "rimraf ./bin",
