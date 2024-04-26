@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # exercise-06
+=======
+# express-js-template
+>>>>>>> d02e1b61d6a016372fd8583b0f0b17e95383e417
 =======
 # express-js-template
 >>>>>>> d02e1b61d6a016372fd8583b0f0b17e95383e417
@@ -20,7 +24,11 @@ Already a pro? Just edit this README.md and make it your own. Want to make it ea
 ```
 cd existing_repo
 <<<<<<< HEAD
+<<<<<<< HEAD
 git remote add origin https://git.ecommchannels.com/chip-universe/chip12/exercises/pairs/pair-1/exercise-06.git
+=======
+git remote add origin https://git.ecommchannels.com/chip-universe/chip12/templates/express-js-template.git
+>>>>>>> d02e1b61d6a016372fd8583b0f0b17e95383e417
 =======
 git remote add origin https://git.ecommchannels.com/chip-universe/chip12/templates/express-js-template.git
 >>>>>>> d02e1b61d6a016372fd8583b0f0b17e95383e417
@@ -31,7 +39,11 @@ git push -uf origin main
 ## Integrate with your tools
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - [ ] [Set up project integrations](https://git.ecommchannels.com/chip-universe/chip12/exercises/pairs/pair-1/exercise-06/-/settings/integrations)
+=======
+- [ ] [Set up project integrations](https://git.ecommchannels.com/chip-universe/chip12/templates/express-js-template/-/settings/integrations)
+>>>>>>> d02e1b61d6a016372fd8583b0f0b17e95383e417
 =======
 - [ ] [Set up project integrations](https://git.ecommchannels.com/chip-universe/chip12/templates/express-js-template/-/settings/integrations)
 >>>>>>> d02e1b61d6a016372fd8583b0f0b17e95383e417
