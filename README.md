@@ -1,6 +1,6 @@
 # Express.js Template
 
->Any mistake or problem caused by this template is not author's responsibility.
+>Any mistake or problem caused by this template is not author's responsibility. If you need help for any difficulties, go [here](https://chat.openai.com/).
 
 This is a template for building Express.js applications following a structured directory layout.
 
