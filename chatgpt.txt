@@ -1,0 +1,201 @@
+chat gpt
+
+--------------------------------
+
+error handling change the middleware to this
+
+import { ApolloError } from 'apollo-server-errors';
+
+export class MyError extends ApolloError {
+  constructor(message: string) {
+    super(message, 'MY_ERROR_CODE');
+
+    Object.defineProperty(this, 'name', { value: 'MyError' });
+  }
+}
+
+throw new MyError('My error message')
+Direct initialization
+import { ApolloError } from 'apollo-server-errors';
+
+throw new ApolloError('My error message', 'MY_ERROR_CODE', myCustomDetailsObject);
+
+---------------------------------
+
+multiple resolver
+
+Wallet Resolvers (walletResolvers.js):
+javascript
+Copy code
+const WalletController = require('../controllers/WalletController');
+
+const walletResolvers = {
+  Query: {
+    getWallets: () => WalletController.fetchAll(),
+  },
+};
+
+module.exports = walletResolvers;
+User Resolvers (userResolvers.js):
+javascript
+Copy code
+const UserController = require('../controllers/UserController');
+
+const userResolvers = {
+  Query: {
+    getUsers: () => UserController.fetchAll(),
+  },
+};
+
+module.exports = userResolvers;
+Consolidate into Root Resolver
+Now, create a root resolver file (resolvers.js) where you'll import and merge all resolver objects:
+
+javascript
+Copy code
+const { DateTimeResolver } = require('graphql-scalars');
+const WalletController = require('../controllers/WalletController');
+const UserController = require('../controllers/UserController');
+
+const walletResolvers = {
+  Query: {
+    getWallets: () => WalletController.fetchAll(),
+  },
+};
+
+const userResolvers = {
+  Query: {
+    getUsers: () => UserController.fetchAll(),
+  },
+};
+
+const rootResolver = {
+  Date: DateTimeResolver,
+  ...walletResolvers,
+  ...userResolvers,
+  // Add more resolvers as needed
+};
+
+module.exports = rootResolver;
+Adjust Apollo Server Setup
+In your main Apollo Server setup (index.js or wherever you initialize Apollo Server), import the consolidated rootResolver along with your type definitions (typeDefs) and set up your server:
+
+javascript
+Copy code
+const { ApolloServer, gql } = require('apollo-server-express');
+const express = require('express');
+const fs = require('fs');
+const path = require('path');
+const rootResolver = require('./resolvers'); // Adjust the path as per your file structure
+
+const app = express();
+app.use(express.json());
+
+// Import typeDefs
+const schemaPath = path.join(__dirname, 'schema.graphql');
+const typeDefs = gql(fs.readFileSync(schemaPath, { encoding: 'utf-8' }));
+
+// Create ApolloServer instance
+const server = new ApolloServer({ typeDefs, resolvers: rootResolver });
+
+// Apply middleware
+server.applyMiddleware({ app });
+
+// Error middleware
+app.use(errorMiddleware);
+
+// Start server
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}${server.graphqlPath}`);
+});
+
+-----------------------------------------------------
+
+multiple graphql schema
+
+user.graphql
+graphql
+Copy code
+type User {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  getUser(id: ID!): User
+}
+post.graphql
+graphql
+Copy code
+type Post {
+  id: ID!
+  title: String!
+  content: String!
+}
+
+type Query {
+  getPost(id: ID!): Post
+}
+
+type Mutation {
+  createPost(title: String!, content: String!): Post
+}
+
+type Subscription {
+  postAdded: Post
+}
+2. Create a Root Schema File
+Create a new file named root.graphql where you'll import and merge all your schema files into a single schema definition.
+
+root.graphql
+graphql
+Copy code
+# Import individual schema files
+#import "./user.graphql"
+#import "./post.graphql"
+
+-----------------------------------------------------
+
+validation in the controller instead
+
+resolvers.js
+javascript
+Copy code
+const Joi = require('joi');
+const { User } = require('./models'); // Example model import
+const { UserInputError } = require('apollo-server-express');
+
+const resolvers = {
+  Query: {
+    getUser: async (parent, { id }, context, info) => {
+      return await User.findById(id); // Example MongoDB query
+    },
+  },
+  Mutation: {
+    createUser: async (parent, { input }, context, info) => {
+      try {
+        // Validate input using Joi
+        const schema = Joi.object({
+          name: Joi.string().required(),
+          email: Joi.string().email().required(),
+          age: Joi.number().integer().min(18).required(),
+        });
+
+        const { error, value } = schema.validate(input, { abortEarly: false });
+        if (error) {
+          throw new UserInputError('Failed to create user', { validationErrors: error.details });
+        }
+
+        // Create user (example MongoDB creation)
+        const newUser = await User.create(value);
+
+        return newUser;
+      } catch (error) {
+        // Handle other errors or rethrow as needed
+        console.error('Error creating user:', error);
+        throw error; // Rethrow the error to let Apollo Server handle it
+      }
+    },
+  },
+};
