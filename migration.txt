@@ -40,3 +40,46 @@ db.users.insertOne({
   created_at: new Date(),
   wallet: ObjectId("60d5ec49f0b92a3e9c1e7292")
 })
+
+db.transactions.insertOne({
+  wallet: ObjectId("60d5ec49f0b92a3e9c1e7290"),
+  amount: 10000,
+  type: 'IN',
+  description: 'Something',
+  created_at: new Date(),
+})
+db.transactions.insertOne({
+  wallet: ObjectId("60d5ec49f0b92a3e9c1e7290"),
+  amount: 5000,
+  type: 'OUT',
+  description: 'Something 2',
+  created_at: new Date(),
+})
+db.transactions.insertOne({
+  wallet: ObjectId("60d5ec49f0b92a3e9c1e7291"),
+  amount: 2000,
+  type: 'IN',
+  description: 'Something',
+  created_at: new Date(),
+})
+db.transactions.insertOne({
+  wallet: ObjectId("60d5ec49f0b92a3e9c1e7291"),
+  amount: 3000,
+  type: 'OUT',
+  description: 'Something 2',
+  created_at: new Date(),
+})
+db.transactions.insertOne({
+  wallet: ObjectId("60d5ec49f0b92a3e9c1e7292"),
+  amount: 4000,
+  type: 'IN',
+  description: 'Something',
+  created_at: new Date(),
+})
+db.transactions.insertOne({
+  wallet: ObjectId("60d5ec49f0b92a3e9c1e7292"),
+  amount: 10000,
+  type: 'OUT',
+  description: 'Something 2',
+  created_at: new Date(),
+})
