@@ -1,0 +1,42 @@
+use jenius
+
+db.wallets.insertOne({
+  _id: ObjectId("60d5ec49f0b92a3e9c1e7290"), // Predefined ObjectId
+  balance: 10000,
+});
+db.wallets.insertOne({
+  _id: ObjectId("60d5ec49f0b92a3e9c1e7291"), // Predefined ObjectId
+  balance: 20000,
+});
+db.wallets.insertOne({
+  _id: ObjectId("60d5ec49f0b92a3e9c1e7292"), // Predefined ObjectId
+  balance: 30000,
+});
+
+db.users.insertOne({
+  _id: ObjectId("60d5ec49f0b92a3e9c1e7297"),
+  name: "John",
+  address: "Jakarta",
+  phone: "08119009010",
+  birthdate: new Date("2001-01-01"),
+  created_at: new Date(),
+  wallet: ObjectId("60d5ec49f0b92a3e9c1e7290")
+})
+db.users.insertOne({
+  _id: ObjectId("60d5ec49f0b92a3e9c1e7298"),
+  name: "Johny",
+  address: "Jakarta",
+  phone: "08119009011",
+  birthdate: new Date("2001-02-01"),
+  created_at: new Date(),
+  wallet: ObjectId("60d5ec49f0b92a3e9c1e7291")
+})
+db.users.insertOne({
+  _id: ObjectId("60d5ec49f0b92a3e9c1e7299"),
+  name: "Bob",
+  address: "Bandung",
+  phone: "08119009012",
+  birthdate: new Date("2001-03-01"),
+  created_at: new Date(),
+  wallet: ObjectId("60d5ec49f0b92a3e9c1e7292")
+})

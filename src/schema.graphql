@@ -1,0 +1,22 @@
+scalar Date
+
+type Wallet {
+    _id: ID!
+    balance: Int
+}
+
+type User {
+    _id: ID!
+    address: String
+    birthdate: Date
+    created_at: Date
+    name: String!
+    phone: String!
+    wallet: Wallet!
+}
+
+type Query {
+    healthCheck: String!
+    getUsers: [User!]!
+    getWallets: [Wallet!]!
+}
