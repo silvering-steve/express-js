@@ -36,6 +36,13 @@ type Transaction {
     description: String
 }
 
+input CreateTransactionData {
+    walletId: ID!
+    amount: Int!
+    type: TransactionType!
+    description: String
+}
+
 type Query {
     healthCheck: String!
 
@@ -48,5 +55,6 @@ type Query {
 
 type Mutation {
     createUser(createUserData: CreateUserData!): User!
-    updateWallet(id: ID!, amount: Int!, type: TransactionType!): Wallet!
+
+    createTransaction(createTransactionData: CreateTransactionData!): Transaction!
 }

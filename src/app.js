@@ -32,7 +32,10 @@ const createServices = (models) => {
 
   const walletService = new WalletService(walletModel);
   const userService = new UserService(userModel, walletService);
-  const transactionService = new TransactionService(transactionModel);
+  const transactionService = new TransactionService(
+    transactionModel,
+    walletService
+  );
 
   return { walletService, userService, transactionService };
 };
@@ -77,8 +80,8 @@ const main = async () => {
     Mutation: {
       createUser: (_, args) =>
         app.locals.controllers.userController.createUser(args),
-      updateWallet: (_, args) =>
-        app.locals.controllers.walletController.updateWallet(args)
+      createTransaction: (_, args) =>
+        app.locals.controllers.transactionController.createTransaction(args)
     },
     User: {
       wallet: (parent) =>
