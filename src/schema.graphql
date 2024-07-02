@@ -20,7 +20,7 @@ type User {
     wallet: Wallet!
 }
 
-input CreateUserData {
+input InputUserData {
     name: String!
     address: String!
     phone: String!
@@ -54,7 +54,8 @@ type Query {
 }
 
 type Mutation {
-    createUser(createUserData: CreateUserData!): User!
+    createUser(inputUserData: InputUserData!): User!
+    updateUser(userId: ID!, inputUserData: InputUserData!): User!
 
     createTransaction(createTransactionData: CreateTransactionData!): Transaction!
 }

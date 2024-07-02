@@ -80,6 +80,9 @@ const main = async () => {
     Mutation: {
       createUser: (_, args) =>
         app.locals.controllers.userController.createUser(args),
+      updateUser: (_, args) =>
+        app.locals.controllers.userController.updateUser(args),
+
       createTransaction: (_, args) =>
         app.locals.controllers.transactionController.createTransaction(args)
     },

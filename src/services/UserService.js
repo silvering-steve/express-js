@@ -46,4 +46,20 @@ export default class UserService {
       wallet
     });
   }
+
+  async updateUser(userId, name, address, phone, birthdate) {
+    const { error } = userBodyValidation.validate({
+      name,
+      address,
+      phone,
+      birthdate
+    });
+    if (error) throw new BadRequestError(error);
+    const user = await this.fetchById(userId);
+    user.name = name;
+    user.address = address;
+    user.phone = phone;
+    user.birthdate = birthdate;
+    return user.save();
+  }
 }
