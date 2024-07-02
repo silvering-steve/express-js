@@ -12,8 +12,9 @@ import WalletController from './controllers/WalletController';
 import UserSchema from './schemas/UserSchema';
 import UserService from './services/UserService';
 import UserController from './controllers/UserController';
-
-import errorMiddleware from './middlewares/errorMiddleware';
+import TransactionSchema from './schemas/TransactionSchema';
+import TransactionService from './services/TransactionService';
+import TransactionController from './controllers/TransactionController';
 
 const app = express();
 app.use(express.json());
@@ -21,25 +22,28 @@ app.use(express.json());
 const createModels = () => {
   return {
     walletModel: model('Wallet', WalletSchema),
-    userModel: model('User', UserSchema)
+    userModel: model('User', UserSchema),
+    transactionModel: model('Transaction', TransactionSchema)
   };
 };
 
 const createServices = (models) => {
-  const { walletModel, userModel } = models;
+  const { walletModel, userModel, transactionModel } = models;
 
   const walletService = new WalletService(walletModel);
   const userService = new UserService(userModel);
+  const transactionService = new TransactionService(transactionModel);
 
-  return { walletService, userService };
+  return { walletService, userService, transactionService };
 };
 
 const createController = (services) => {
-  const { walletService, userService } = services;
+  const { walletService, userService, transactionService } = services;
 
   return {
     walletController: new WalletController(walletService),
-    userController: new UserController(userService)
+    userController: new UserController(userService),
+    transactionController: new TransactionController(transactionService)
   };
 };
 
@@ -62,8 +66,13 @@ const main = async () => {
     Query: {
       healthCheck: () => 'I Love You',
 
-      getWallets: app.locals.controllers.walletController.fetchAll,
-      getUsers: app.locals.controllers.userController.fetchAll
+      getUsers: app.locals.controllers.userController.fetchAll,
+      getUser: (_, args) =>
+        app.locals.controllers.userController.fetchById(args),
+      getTransactionsByWallet: (_, args) =>
+        app.locals.controllers.transactionController.fetchByWalletIdAndFilter(
+          args
+        )
     },
     User: {
       wallet: (parent) =>
@@ -78,7 +87,5 @@ const main = async () => {
 };
 
 main();
-
-app.use(errorMiddleware);
 
 export default app;

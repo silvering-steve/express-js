@@ -1,3 +1,5 @@
+import UserNotFoundError from '../errors/UserNotFoundError';
+
 export default class UserService {
   #UserModel;
 
@@ -6,6 +8,10 @@ export default class UserService {
   }
 
   async fetchById(userId) {
+    const user = await this.#UserModel.findById(userId);
+
+    if (!user) UserNotFoundError(userId);
+
     return this.#UserModel.findById(userId);
   }
 

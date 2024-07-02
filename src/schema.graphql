@@ -1,5 +1,10 @@
 scalar Date
 
+enum TransactionType {
+    IN
+    OUT
+}
+
 type Wallet {
     _id: ID!
     balance: Int
@@ -15,8 +20,19 @@ type User {
     wallet: Wallet!
 }
 
+type Transaction {
+    _id: ID!
+    wallet: Wallet!
+    amount: Int!
+    type: TransactionType!
+    created_at: Date!
+    description: String
+}
+
 type Query {
     healthCheck: String!
     getUsers: [User!]!
-    getWallets: [Wallet!]!
+    getUser(userId: ID!): User
+    getTransactionsByWallet(walletId: ID!, description: String, greaterThan:
+    Int): [Transaction]!
 }

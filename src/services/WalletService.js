@@ -1,3 +1,5 @@
+import WalletNotFoundError from '../errors/WalletNotFoundError';
+
 export default class WalletService {
   #WalletModel;
 
@@ -6,7 +8,11 @@ export default class WalletService {
   }
 
   async fetchById(walletId) {
-    return this.#WalletModel.findById(walletId);
+    const wallet = await this.#WalletModel.findById(walletId);
+
+    if (!wallet) WalletNotFoundError(walletId);
+
+    return wallet;
   }
 
   async fetchAll() {

@@ -11,7 +11,9 @@ export default class UserController {
     return this.#UserService.fetchAll();
   }
 
-  async #fetchById(walletId) {
-    return this.#UserService.fetchById(walletId);
+  async #fetchById(args) {
+    const { userId } = args;
+
+    return this.#UserService.fetchById(userId);
   }
 }

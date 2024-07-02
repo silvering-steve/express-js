@@ -1,17 +1,20 @@
 import request from 'supertest-graphql';
 import gql from 'graphql-tag';
-import app from '../src/app-dummy';
+import app from '../src/app';
 
 describe('app', () => {
-  describe('getWallets', () => {
-    it('should respond with Hello World and status code 200', async () => {
-      const actualResult = await request(app).query(gql`
+  describe('healthCheck', () => {
+    it('should respond with I Love You and undefined errors', async () => {
+      const responseData = 'I Love You';
+
+      const { errors, data } = await request(app).query(gql`
         query {
           healthCheck
         }
       `);
 
-      console.log(actualResult);
+      expect(errors).toBeUndefined();
+      expect(data.healthCheck).toBe(responseData);
     });
   });
 });
