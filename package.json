@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm-run-all build server",
     "build": "npm-run-all clean transpile copy",
-    "copy": "cp ./src/schema.graphql ./bin",
+    "copy": "cp src/graphql/schema.js ./bin",
     "server": "node ./bin/index.js",
     "transpile": "babel ./src --out-dir ./bin",
     "clean": "rimraf ./bin",
