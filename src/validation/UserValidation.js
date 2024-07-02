@@ -10,7 +10,7 @@ const userBodyValidation = Joi.object({
   name: Joi.string().required(),
   birthdate: Joi.date().required(),
   phone: Joi.string().required(),
-  address: String
+  address: Joi.string().required()
 });
 
 export { userIdValidation, userBodyValidation };

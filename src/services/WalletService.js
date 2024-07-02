@@ -9,14 +9,21 @@ export default class WalletService {
 
   async fetchById(walletId) {
     const wallet = await this.#WalletModel.findById(walletId);
+
     if (!wallet) WalletNotFoundError(walletId);
 
     return wallet;
   }
 
   async createWallet() {
-    return this.#WalletModel.create({});
+    return this.#WalletModel.create({ balance: 0 });
   }
 
-  async updateWallet() {}
+  async updateWallet(walletId, amount, type) {
+    const wallet = await this.fetchById(walletId);
+    const updatedWallet = await wallet.updateBalance(type, amount);
+
+    updatedWallet.save();
+    return updatedWallet;
+  }
 }

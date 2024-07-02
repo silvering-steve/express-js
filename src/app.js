@@ -76,7 +76,9 @@ const main = async () => {
     },
     Mutation: {
       createUser: (_, args) =>
-        app.locals.controllers.userController.createUser(args)
+        app.locals.controllers.userController.createUser(args),
+      updateWallet: (_, args) =>
+        app.locals.controllers.walletController.updateWallet(args)
     },
     User: {
       wallet: (parent) =>

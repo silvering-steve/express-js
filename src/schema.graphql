@@ -48,4 +48,5 @@ type Query {
 
 type Mutation {
     createUser(createUserData: CreateUserData!): User!
+    updateWallet(id: ID!, amount: Int!, type: TransactionType!): Wallet!
 }
