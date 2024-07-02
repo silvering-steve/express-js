@@ -20,6 +20,13 @@ type User {
     wallet: Wallet!
 }
 
+input CreateUserData {
+    name: String!
+    address: String!
+    phone: String!
+    birthdate: String!
+}
+
 type Transaction {
     _id: ID!
     wallet: Wallet!
@@ -31,8 +38,14 @@ type Transaction {
 
 type Query {
     healthCheck: String!
+
     getUsers: [User!]!
     getUser(userId: ID!): User
+
     getTransactionsByWallet(walletId: ID!, description: String, greaterThan:
     Int): [Transaction]!
+}
+
+type Mutation {
+    createUser(createUserData: CreateUserData!): User!
 }

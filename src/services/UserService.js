@@ -1,21 +1,49 @@
 import UserNotFoundError from '../errors/UserNotFoundError';
+import {
+  userBodyValidation,
+  userIdValidation
+} from '../validation/UserValidation';
+import BadRequestError from '../errors/BadRequestError';
 
 export default class UserService {
   #UserModel;
 
-  constructor(UserModel) {
+  #WalletService;
+
+  constructor(UserModel, WalletService) {
     this.#UserModel = UserModel;
+    this.#WalletService = WalletService;
   }
 
   async fetchById(userId) {
-    const user = await this.#UserModel.findById(userId);
+    const { error } = userIdValidation.validate({ userId });
+    if (error) throw new UserNotFoundError(userId);
 
-    if (!user) UserNotFoundError(userId);
+    const user = await this.#UserModel.findById(userId);
+    if (!user) throw new UserNotFoundError(userId);
 
     return this.#UserModel.findById(userId);
   }
 
   async fetchAll() {
     return this.#UserModel.find();
+  }
+
+  async createUser(name, address, phone, birthdate) {
+    const wallet = await this.#WalletService.createWallet();
+    const { error } = userBodyValidation.validate({
+      name,
+      address,
+      phone,
+      birthdate
+    });
+    if (error) throw new BadRequestError(error);
+    return this.#UserModel.create({
+      name,
+      address,
+      phone,
+      birthdate: new Date(birthdate),
+      wallet
+    });
   }
 }

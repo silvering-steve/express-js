@@ -9,7 +9,7 @@ export default class TransactionService {
     return this.#TransactionModel.find({
       wallet: walletId,
       description: { $regex: description, $options: 'i' },
-      amount: { $gt: greaterThan }
+      amount: { $gte: greaterThan }
     });
   }
 

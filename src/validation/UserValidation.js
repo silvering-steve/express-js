@@ -10,7 +10,6 @@ const userBodyValidation = Joi.object({
   name: Joi.string().required(),
   birthdate: Joi.date().required(),
   phone: Joi.string().required(),
-  wallet: Joi.string().length(LENGTH_OBJECT_ID).hex().required(),
   address: String
 });
 

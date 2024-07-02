@@ -31,7 +31,7 @@ const createServices = (models) => {
   const { walletModel, userModel, transactionModel } = models;
 
   const walletService = new WalletService(walletModel);
-  const userService = new UserService(userModel);
+  const userService = new UserService(userModel, walletService);
   const transactionService = new TransactionService(transactionModel);
 
   return { walletService, userService, transactionService };
@@ -73,6 +73,10 @@ const main = async () => {
         app.locals.controllers.transactionController.fetchByWalletIdAndFilter(
           args
         )
+    },
+    Mutation: {
+      createUser: (_, args) =>
+        app.locals.controllers.userController.createUser(args)
     },
     User: {
       wallet: (parent) =>

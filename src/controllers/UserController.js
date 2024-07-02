@@ -5,6 +5,7 @@ export default class UserController {
     this.#UserService = UserService;
     this.fetchAll = this.#fetchAll.bind(this);
     this.fetchById = this.#fetchById.bind(this);
+    this.createUser = this.#createUser.bind(this);
   }
 
   async #fetchAll() {
@@ -15,5 +16,11 @@ export default class UserController {
     const { userId } = args;
 
     return this.#UserService.fetchById(userId);
+  }
+
+  async #createUser(args) {
+    const { name, address, phone, birthdate } = args.createUserData;
+
+    return this.#UserService.createUser(name, address, phone, birthdate);
   }
 }

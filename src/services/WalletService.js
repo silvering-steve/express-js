@@ -9,13 +9,14 @@ export default class WalletService {
 
   async fetchById(walletId) {
     const wallet = await this.#WalletModel.findById(walletId);
-
     if (!wallet) WalletNotFoundError(walletId);
 
     return wallet;
   }
 
-  async fetchAll() {
-    return this.#WalletModel.find();
+  async createWallet() {
+    return this.#WalletModel.create({});
   }
+
+  async updateWallet() {}
 }
