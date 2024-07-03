@@ -74,5 +74,25 @@ describe('WalletService', () => {
 
       expect(actualResult).toEqual(wallet);
     });
+
+    it(
+      'should throw error when trying to decrease the balance but does not' +
+        ' have that much money',
+      async () => {
+        const depositAmount = 200000;
+        const transactionType = 'OUT';
+        const walletService = new WalletService(walletModel);
+
+        const actualResult = async () => {
+          await walletService.updateWallet(
+            walletId,
+            depositAmount,
+            transactionType
+          );
+        };
+
+        await expect(actualResult).rejects.toThrow(BalanceNotEnoughError);
+      }
+    );
   });
 });

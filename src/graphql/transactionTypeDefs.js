@@ -8,7 +8,6 @@ enum TransactionType {
 
 type Transaction {
     id: ID!
-    wallet: Wallet!
     amount: Int!
     type: TransactionType!
     created_at: Date!

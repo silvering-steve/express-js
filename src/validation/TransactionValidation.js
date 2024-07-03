@@ -4,7 +4,7 @@ const LENGTH_OBJECT_ID = 24;
 
 const transactionBodyValidation = Joi.object({
   walletId: Joi.string().hex().length(LENGTH_OBJECT_ID).required(),
-  amount: Joi.date().required(),
+  amount: Joi.string().required(),
   type: Joi.string().valid('IN', 'OUT').required(),
   description: Joi.string()
 });

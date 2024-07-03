@@ -7,14 +7,17 @@ describe('app', () => {
     it('should respond with I Love You and undefined errors', async () => {
       const responseData = 'I Love You Haruka';
 
-      const { errors, data } = await request(app).query(gql`
-        query {
-          healthCheck
-        }
-      `);
+      const {
+        data: { healthCheck }
+      } = await request(app)
+        .query(gql`
+          query {
+            healthCheck
+          }
+        `)
+        .expectNoErrors();
 
-      expect(errors).toBeUndefined();
-      expect(data.healthCheck).toBe(responseData);
+      expect(healthCheck).toBe(responseData);
     });
   });
 });

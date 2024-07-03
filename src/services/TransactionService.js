@@ -11,7 +11,9 @@ export default class TransactionService {
     this.#WalletService = WalletService;
   }
 
-  async fetchByWalletIdAndFilter(walletId, description = '', greaterThan = 0) {
+  async fetchByWalletIdAndFilter(walletAndFilterData) {
+    const { walletId, description = '', greaterThan = 0 } = walletAndFilterData;
+
     return this.#TransactionModel.find({
       wallet: walletId,
       description: { $regex: description, $options: 'i' },
@@ -19,18 +21,12 @@ export default class TransactionService {
     });
   }
 
-  async fetchAll() {
-    return this.#TransactionModel.find();
-  }
-
-  async createTransaction(walletId, amount, description, type) {
+  async createTransaction(createTransactionData) {
     const { error } = transactionBodyValidation.validate({
-      walletId,
-      amount,
-      description,
-      type
+      ...createTransactionData
     });
     if (error) throw new BadRequestError(error);
+    const { walletId, amount, type, description } = createTransactionData;
     const wallet = await this.#WalletService.updateWallet(
       walletId,
       amount,
