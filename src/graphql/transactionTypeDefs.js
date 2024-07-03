@@ -7,7 +7,7 @@ enum TransactionType {
 }
 
 type Transaction {
-    _id: ID!
+    id: ID!
     wallet: Wallet!
     amount: Int!
     type: TransactionType!
@@ -17,7 +17,7 @@ type Transaction {
 
 input CreateTransactionData {
     walletId: ID!
-    amount: Int!
+    amount: String!
     type: TransactionType!
     description: String
 }`;

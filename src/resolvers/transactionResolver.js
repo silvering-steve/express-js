@@ -1,11 +1,12 @@
 const initializeTransactionResolvers = (transactionController) => {
   return {
     Query: {
-      getTransactionsByWallet: (args) =>
+      getTransactionsByWallet: (_, args) =>
         transactionController.fetchByWalletIdAndFilter(args)
     },
     Mutation: {
-      createTransaction: (args) => transactionController.createTransaction(args)
+      createTransaction: (_, args) =>
+        transactionController.createTransaction(args)
     }
   };
 };

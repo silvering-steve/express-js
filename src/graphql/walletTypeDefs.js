@@ -1,6 +1,6 @@
 const walletTypeDefs = `
 type Wallet {
-    _id: ID!
+    id: ID!
     balance: Int
 }`;
 

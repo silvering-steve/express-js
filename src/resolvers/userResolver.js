@@ -1,4 +1,4 @@
-const initializeUserResolvers = (userController, walletController) => {
+const initializeUserResolvers = (userController) => {
   return {
     Query: {
       getUsers: userController.fetchAll,
@@ -9,7 +9,7 @@ const initializeUserResolvers = (userController, walletController) => {
       updateUser: (_, args) => userController.updateUser(args)
     },
     User: {
-      wallet: (parent) => walletController.fetchById(parent.wallet)
+      wallet: (parent) => userController.fetchWallet(parent.wallet)
     }
   };
 };

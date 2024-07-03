@@ -10,7 +10,7 @@ export default class WalletService {
   async fetchById(walletId) {
     const wallet = await this.#WalletModel.findById(walletId);
 
-    if (!wallet) WalletNotFoundError(walletId);
+    if (!wallet) throw new WalletNotFoundError(walletId);
 
     return wallet;
   }
@@ -21,7 +21,10 @@ export default class WalletService {
 
   async updateWallet(walletId, amount, type) {
     const wallet = await this.fetchById(walletId);
-    const updatedWallet = await wallet.updateBalance(type, amount);
+    const updatedWallet = await wallet.updateBalance(
+      type,
+      parseInt(amount, 10)
+    );
 
     updatedWallet.save();
     return updatedWallet;

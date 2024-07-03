@@ -1,6 +1,6 @@
-import transactionTypeDefs from './transaction';
-import walletTypeDefs from './wallet';
-import userTypeDefs from './user';
+import transactionTypeDefs from './transactionTypeDefs';
+import walletTypeDefs from './walletTypeDefs';
+import userTypeDefs from './userTypeDefs';
 
 const typeDefs = `
 ${transactionTypeDefs}

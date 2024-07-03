@@ -19,12 +19,8 @@ const initializeRootResolvers = (userResolvers, transactionResolvers) => {
 };
 
 const initializeResolvers = (controllers) => {
-  const { userController, transactionController, walletController } =
-    controllers;
-  const userResolvers = initializeUserResolvers(
-    userController,
-    walletController
-  );
+  const { userController, transactionController } = controllers;
+  const userResolvers = initializeUserResolvers(userController);
   const transactionResolvers = initializeTransactionResolvers(
     transactionController
   );

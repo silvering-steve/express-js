@@ -1,6 +1,6 @@
 const userTypeDefs = `
 type User {
-    _id: ID!
+    id: ID!
     address: String
     birthdate: Date
     created_at: Date

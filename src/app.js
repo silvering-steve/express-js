@@ -5,7 +5,6 @@ import { model } from 'mongoose';
 
 import WalletSchema from './schemas/WalletSchema';
 import WalletService from './services/WalletService';
-import WalletController from './controllers/WalletController';
 import UserSchema from './schemas/UserSchema';
 import UserService from './services/UserService';
 import UserController from './controllers/UserController';
@@ -14,7 +13,7 @@ import TransactionService from './services/TransactionService';
 import TransactionController from './controllers/TransactionController';
 
 import initializeResolvers from './resolvers/rootResolver';
-import typeDefs from './graphql/schema';
+import typeDefs from './graphql/typeDefs';
 
 const app = express();
 app.use(express.json());
@@ -37,14 +36,13 @@ const createServices = (models) => {
     walletService
   );
 
-  return { walletService, userService, transactionService };
+  return { userService, transactionService };
 };
 
 const createController = (services) => {
-  const { walletService, userService, transactionService } = services;
+  const { userService, transactionService } = services;
 
   return {
-    walletController: new WalletController(walletService),
     userController: new UserController(userService),
     transactionController: new TransactionController(transactionService)
   };
